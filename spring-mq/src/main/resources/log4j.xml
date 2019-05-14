@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//LOGGER" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+
+<log4j:configuration>
+	<!-- <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender"> 
+		<layout class="org.apache.log4j.PatternLayout"> <param name="ConversionPattern" 
+		value="[%d{dd/MM/yyyy HH:mm:ss,SSS}] - %-5p - %x [%F:%L]: %m %n" /> </layout> 
+		</appender> -->
+
+	<appender name="ACTIVE-MQAPI" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="./log/activemq-api.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{dd/MM/yyyy HH:mm:ss,SSS}] - %-5p - %x [%c{1}] - %m %n" />
+		</layout>
+	</appender>
+
+	<appender name="QUEUE-PRODUCER" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="./log/queue-producer.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{dd/MM/yyyy HH:mm:ss,SSS}] - %-5p - %x [%c{1}] - %m %n" />
+		</layout>
+	</appender>
+	
+	<appender name="TOPIC-PRODUCER" class="org.apache.log4j.RollingFileAppender">
+		<param name="File" value="./log/topic-producer.log" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{dd/MM/yyyy HH:mm:ss,SSS}] - %-5p - %x [%c{1}] - %m %n" />
+		</layout>
+	</appender>
+	
+	<category
+		name="br.com.spring.mq.producer.ActiveMQProducerQueue"
+		additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="QUEUE-PRODUCER" />
+	</category>
+	
+	<category
+		name="br.com.spring.mq.producer.ActiveMQProducerTopic"
+		additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="TOPIC-PRODUCER" />
+	</category>
+	
+	<category 
+		name="br.com.spring.mq.api.ActiveMQApi"
+		additivity="false">
+		<priority value="INFO" />
+		<appender-ref ref="ACTIVE-MQAPI"/>	
+	</category>
+	
+	<root>
+		<priority value="INFO" />
+		<appender-ref ref="ACTIVE-MQAPI" />
+	</root>
+	
+</log4j:configuration>
